@@ -10,7 +10,5 @@ const Guide = () => {
 export default Guide
 const styles = StyleSheet.create({
   guideScreen: {
-
-    
   }
 })

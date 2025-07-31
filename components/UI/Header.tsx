@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import Colours from "../../utils/Colours";
 
 type ColourKey = keyof typeof Colours;
@@ -10,8 +10,17 @@ const Header = ({
   title: string;
   bgColour: ColourKey;
 }) => {
+  const { width, height } = useWindowDimensions();
   return (
-    <View style={[styles.header, { backgroundColor: Colours[bgColour] }]}>
+    <View
+      style={[
+        styles.header,
+        {
+          backgroundColor: Colours[bgColour],
+          height: width < 500 ? "10%" : "20%",
+        },
+      ]}
+    >
       <Text style={styles.headerText}>{title}</Text>
     </View>
   );
@@ -19,16 +28,13 @@ const Header = ({
 export default Header;
 const styles = StyleSheet.create({
   header: {
-    borderRadius: 16,
-    width: "80%",
-    height: 40,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 24,
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 32,
   },
 });

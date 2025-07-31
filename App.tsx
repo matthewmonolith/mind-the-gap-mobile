@@ -44,7 +44,7 @@ export default function App() {
                 drawerIcon: ({ color }) => (
                   <FontAwesome name="cloud" size={28} color={color} />
                 ),
-                headerTitle: "Meditation Timer",
+                headerTitle: "Your Timers",
               }}
             />
             <Drawer.Screen
