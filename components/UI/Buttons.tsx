@@ -3,11 +3,11 @@ import Colours from "../../utils/Colours";
 
 export const TimerButton = ({
   expiryTimestamp,
-  handleClick,
+  handlePress,
   type = "main",
 }: {
   expiryTimestamp: string;
-  handleClick: () => void;
+  handlePress: () => void;
   type?: "main" | "reminder";
 }) => {
   return (
@@ -18,8 +18,9 @@ export const TimerButton = ({
           { backgroundColor: type === "main" ? Colours.dark : Colours.light },
         ]}
         // android_ripple={{color: ''}}
+        onPress={handlePress}
       >
-        {expiryTimestamp}
+        <Text style={styles.timerText}>{expiryTimestamp}</Text>
       </Pressable>
     </View>
   );
@@ -35,6 +36,8 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  timerText: {
     color: "white",
     fontSize: 24,
     lineHeight: 32,

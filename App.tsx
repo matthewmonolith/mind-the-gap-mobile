@@ -6,12 +6,13 @@ import Timer from "./screens/Timer";
 import Guide from "./screens/Guide";
 import { FontAwesome } from "@expo/vector-icons";
 import Colours from "./utils/Colours";
+import { Provider } from "./context/SoundContext";
 
 const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <>
+    <Provider>
       <StatusBar style="auto" />
       <NavigationContainer>
         <ImageBackground
@@ -44,7 +45,7 @@ export default function App() {
                 drawerIcon: ({ color }) => (
                   <FontAwesome name="cloud" size={28} color={color} />
                 ),
-                headerTitle: "Your Timers",
+                headerTitle: () => null,
               }}
             />
             <Drawer.Screen
@@ -60,7 +61,7 @@ export default function App() {
           </Drawer.Navigator>
         </ImageBackground>
       </NavigationContainer>
-    </>
+    </Provider>
   );
 }
 

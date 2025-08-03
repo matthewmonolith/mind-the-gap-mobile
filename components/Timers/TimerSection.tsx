@@ -1,4 +1,3 @@
-import React from "react";
 import { View, StyleSheet } from "react-native";
 import Timer from "./Timer";
 import { TimerButton } from "../UI/Buttons";
@@ -6,14 +5,14 @@ import { TimerButton } from "../UI/Buttons";
 type TimerSectionProps = {
   times: string[];
   selectedTime: string;
-  handleClick: (time: string, type: string) => void;
+  handlePress: (time: string, type: string) => void;
   type: "main" | "reminder";
 };
 
 export const TimerSection = ({
   times,
   selectedTime,
-  handleClick,
+  handlePress,
   type,
 }: TimerSectionProps) => {
   return (
@@ -36,7 +35,7 @@ export const TimerSection = ({
             key={time}
             type={type === "reminder" ? "reminder" : undefined}
             expiryTimestamp={time}
-            handleClick={() => handleClick(time, type)}
+            handlePress={() => handlePress(time, type)}
           />
         );
       })}

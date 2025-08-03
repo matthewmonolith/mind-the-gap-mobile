@@ -1,13 +1,11 @@
-import { View } from "react-native";
+import { StyleSheet, Text, View } from 'react-native'
 
-function Timer({
-  timeStamp,
-  isMeditation,
-}: {
-  timeStamp: string;
-  isMeditation: boolean;
-}) {
-  return <View></View>;
+const Timer = () => {
+  return (
+    <View>
+      <Text>Timer</Text>
+    </View>
+  )
 }
-
-export default Timer;
+export default Timer
+const styles = StyleSheet.create({})
