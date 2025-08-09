@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   animatedContainer: {
     overflow: "hidden",
     backgroundColor: Colours.light,
-    flexDirection: "row", // ✅ two columns side-by-side
+    flexDirection: "row",
     paddingHorizontal: 12,
     paddingVertical: 8,
   },

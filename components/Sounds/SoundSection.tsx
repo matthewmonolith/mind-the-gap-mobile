@@ -34,7 +34,7 @@ export default SoundSection;
 
 const styles = StyleSheet.create({
   categoryBlock: {
-    flex: 1, // each section takes half when parent is row
+    flex: 1,
     paddingHorizontal: 8,
     alignItems: "center",
   },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonsContainer: {
-    width: "100%", // container spans column
-    alignItems: "center", // center buttons horizontally
+    width: "100%",
+    alignItems: "center",
   },
 });

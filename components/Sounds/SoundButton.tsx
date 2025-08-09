@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginVertical: 5,
     borderRadius: 9999,
-    width: "80%",            // ✅ consistent width in portrait & landscape
-    alignSelf: "center",     // ✅ center within its column
-    maxWidth: 420,           // optional: cap on big tablets
+    width: "80%",
+    alignSelf: "center",
+    maxWidth: 420,
   },
   buttonPressed: { opacity: 0.5 },
   buttonText: {
