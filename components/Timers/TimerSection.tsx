@@ -20,22 +20,18 @@ export const TimerSection = ({
       {times.map((time) => {
         const isSelected = selectedTime === time;
 
-        if (isSelected) {
-          return (
-            <Timer
-              timeStamp={time}
-              key={time}
-              isMeditation={type === "main"}
-            />
-          );
-        }
-
-        return (
+        return isSelected ? (
+          type === "main" ? (
+            <Timer timeStamp={time} key={time} isMeditation={true} />
+          ) : (
+            <Timer timeStamp={time} key={time} isMeditation={false} />
+          )
+        ) : (
           <TimerButton
-            key={time}
+            key={time || time}
             type={type === "reminder" ? "reminder" : undefined}
-            expiryTimestamp={time}
-            handlePress={() => handlePress(time, type)}
+            expiryTimestamp={time || time}
+            handlePress={() => handlePress(time || time, type)}
           />
         );
       })}

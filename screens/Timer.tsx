@@ -1,12 +1,13 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Animated, View, Easing } from "react-native";
 import Header from "../components/UI/Header";
 import { TimerSection } from "../components/Timers/TimerSection";
-import { mainTimes } from "../utils/Times";
-import { useReducer } from "react";
-import { useLayoutEffect } from "react";
+import { mainTimes, reminderTimes } from "../utils/Times";
+import { useReducer, useEffect, useRef, useLayoutEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import SoundsButton from "../components/Sounds/SoundsButton";
 import SoundSection from "../components/Sounds/SoundSection";
+import { reminderSounds, meditationSounds } from "../utils/Sounds";
+import Colours from "../utils/Colours";
 
 const Timer = () => {
   const navigation = useNavigation();
@@ -75,9 +76,27 @@ const Timer = () => {
     });
   }, []);
 
+  const heightAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(heightAnim, {
+      toValue: state.showSounds ? 200 : 0,
+      duration: 300,
+      easing: Easing.inOut(Easing.ease),
+      useNativeDriver: false,
+    }).start();
+  }, [state.showSounds]);
+
   return (
     <View style={styles.container}>
-      {state.showSounds && <SoundSection visible={state.showSounds} />}
+      {state.showSounds && (
+        <Animated.View
+          style={[styles.animatedContainer, { height: heightAnim }]}
+        >
+          <SoundSection sounds={meditationSounds} isMeditationSound={true} />
+          <SoundSection sounds={reminderSounds} isMeditationSound={false} />
+        </Animated.View>
+      )}
       <ScrollView contentContainerStyle={styles.contentWrapper}>
         <Header title="Meditation Timers" bgColour="dark" />
         <TimerSection
@@ -85,6 +104,13 @@ const Timer = () => {
           selectedTime={state.selectedTimer}
           handlePress={handlePress}
           type="main"
+        />
+        <Header title="Reminder Timers" bgColour="light" />
+        <TimerSection
+          times={reminderTimes}
+          selectedTime={state.selectedReminder}
+          handlePress={handlePress}
+          type="reminder"
         />
       </ScrollView>
     </View>
@@ -94,11 +120,14 @@ const Timer = () => {
 export default Timer;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1 },
+  animatedContainer: {
+    overflow: "hidden",
+    backgroundColor: Colours.light,
+    flexDirection: "row", // ✅ two columns side-by-side
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  contentWrapper: {
-    flexGrow: 1,
-    justifyContent: "flex-start",
-  },
+
+  contentWrapper: { flexGrow: 1, paddingBottom: 150 },
 });

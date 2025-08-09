@@ -7,4 +7,5 @@ export default Colours = {
   dark: "#746CC7",
   darker: "#6359B0",
   darkest: "#52469A",
+  blue300: "#93C5FD"
 };
