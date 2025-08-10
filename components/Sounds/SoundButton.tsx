@@ -7,27 +7,33 @@ import {
   SET_REMINDER_SOUND,
 } from "../../context/SoundContext";
 
-// const { dispatch } = useContext(SoundContext);
-
 const SoundButton = ({
   buttonText,
   soundName,
   isMeditationSound,
 }: {
   buttonText: string;
-  isMeditationSound: boolean
+  isMeditationSound: boolean;
   soundName: string;
 }) => {
+
+  const { dispatch, state: { meditationSound, reminderSound } } = useContext(SoundContext);
+
+  const soundToUse = isMeditationSound ? meditationSound : reminderSound;
+
   return (
-      <Pressable
-        // onPress={() => {
-          
-        // }}
-        style={({pressed}) => [styles.button, pressed && styles.buttonPressed]}
-        android_ripple={{color: Colours.light}}
-      >
-        <Text style={styles.buttonText}>{buttonText}</Text>
-      </Pressable>
+    <Pressable
+      onPress={() => {
+        dispatch({
+          type: isMeditationSound ? SET_MEDITATION_SOUND : SET_REMINDER_SOUND,
+          payload: soundName,
+        });
+      }}
+      style={({ pressed }) => [styles.button, pressed && styles.buttonPressed, soundName == soundToUse && {backgroundColor: Colours.darker}]}
+      android_ripple={{ color: Colours.light }}
+    >
+      <Text style={styles.buttonText}>{buttonText}</Text>
+    </Pressable>
   );
 };
 export default SoundButton;

@@ -5,8 +5,10 @@ import { useTimer } from "react-timer-hook";
 import { ActionButton } from "../UI/Buttons";
 import { useCalculateMaxTime } from "../../utils/hooks/useCalculateMaxTime";
 import { newTimeStamp } from "../../utils/Times";
-import { SoundContext, PLAY_SOUND } from "../../context/SoundContext";
+import { SoundContext } from "../../context/SoundContext";
 import Colours from "../../utils/Colours";
+import { reminderSounds, meditationSounds } from "../../utils/Sounds";
+import { useSoundPlayer } from "../../utils/hooks/useSoundPlayer";
 
 const Timer = ({
   timeStamp,
@@ -16,21 +18,23 @@ const Timer = ({
   isMeditation: boolean;
 }) => {
   const expiryTimestamp = newTimeStamp(timeStamp);
-  const { dispatch } = useContext(SoundContext);
+  const { state } = useContext(SoundContext);
   const [disabled, setDisabled] = useState(false);
   const [userInteracted, setUserInteracted] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  const sounds = isMeditation ? meditationSounds : reminderSounds;
+  const soundName = isMeditation ? state.meditationSound : state.reminderSound;
+
+  const { play, isReady } = useSoundPlayer(sounds, soundName);
+
+  if (!isReady) return null;
 
   const { seconds, minutes, pause, restart, resume } = useTimer({
     expiryTimestamp,
     autoStart: false,
     onExpire: () => {
-      if (userInteracted) {
-        dispatch({ type: PLAY_SOUND, payload: { isMeditation } });
-      } else {
-        console.warn("Sound blocked due to missing user interaction.");
-      }
-
+      play();
       if (!isMeditation) {
         const now = newTimeStamp(timeStamp, true);
         setTimeout(() => restart(now), 1000);
@@ -71,7 +75,12 @@ const Timer = ({
         lineCap="round"
       >
         {() => (
-          <View style={[styles.innerCircle, {backgroundColor: isMeditation ? Colours.dark : Colours.light}]}>
+          <View
+            style={[
+              styles.innerCircle,
+              { backgroundColor: isMeditation ? Colours.dark : Colours.light },
+            ]}
+          >
             <Text style={styles.progressText}>{currentTimeString}</Text>
             <View style={styles.progressButton}>
               {!isActive ? (
@@ -106,23 +115,17 @@ const Timer = ({
   );
 };
 export default Timer;
+
 const styles = StyleSheet.create({
-  pressableContainer: {
-    width: 230,
-  },
-  progressContainer: {
-    display: "flex",
-  },
+  pressableContainer: { width: 230 },
+  progressContainer: { display: "flex" },
   progressText: {
     color: "#ffffff",
     fontSize: 44,
     fontWeight: "bold",
     textAlign: "center",
   },
-  progressButton: {
-    display: "flex",
-    flexDirection: 'row'
-  },
+  progressButton: { display: "flex", flexDirection: "row" },
   innerCircle: {
     flex: 1,
     justifyContent: "center",

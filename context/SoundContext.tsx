@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, ReactNode } from "react";
+import { createContext, useReducer, ReactNode } from "react";
 import { reminderSounds, meditationSounds } from "../utils/Sounds";
-import { useAudioPlayer } from 'expo-audio';
+import { useAudioPlayer } from "expo-audio";
 
 export const SET_REMINDER_SOUND = "SET_REMINDER_SOUND" as const;
 export const SET_MEDITATION_SOUND = "SET_MEDITATION_SOUND" as const;
@@ -22,7 +22,6 @@ const initialState: SoundState = {
 type SoundContextType = {
   state: SoundState;
   dispatch: React.Dispatch<SoundAction>;
-  handlePlaySound: (isMeditation: boolean) => void | Promise<void>;
 };
 
 function soundReducer(state: SoundState, action: SoundAction): SoundState {
@@ -39,30 +38,13 @@ function soundReducer(state: SoundState, action: SoundAction): SoundState {
 const SoundContext = createContext<SoundContextType>({
   state: initialState,
   dispatch: () => {},
-  handlePlaySound: () => {},
 });
 
 function Provider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(soundReducer, initialState);
 
-  const handlePlaySound = async (isMeditation: boolean) => {
-    const sounds = isMeditation ? meditationSounds : reminderSounds;
-    const soundName = isMeditation
-      ? state.meditationSound
-      : state.reminderSound;
-
-    const currentSound = sounds.find((s) => s.name === soundName);
-    if (!currentSound) {
-      console.warn(`Sound "${soundName}" not found.`);
-      return;
-    }
-
-    // const { sound } = await Audio.Sound.createAsync(currentSound.sound);
-    // await sound.playAsync();
-  };
-
   return (
-    <SoundContext.Provider value={{ state, dispatch, handlePlaySound }}>
+    <SoundContext.Provider value={{ state, dispatch }}>
       {children}
     </SoundContext.Provider>
   );
