@@ -1,13 +1,26 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  useWindowDimensions,
+} from "react-native";
 import Colours from "../utils/Colours";
 import SubHeader from "../components/UI/SubHeader";
 import TextBlock from "../components/UI/TextBlock";
 
 const Guide = () => {
+  const { width, height } = useWindowDimensions();
+
   return (
     <View style={styles.guideScreen}>
       <ScrollView>
-        <View style={styles.guideContainer}>
+        <View
+          style={[
+            styles.guideContainer,
+            width < 500 ? { paddingHorizontal: 24 } : { paddingHorizontal: 50 },
+          ]}
+        >
           <SubHeader>About</SubHeader>
           <TextBlock>
             Mind the Gap is a simple yet user-friendly app that helps you stay
@@ -18,11 +31,13 @@ const Guide = () => {
           <TextBlock>
             There are two timers available for user:{"\n"}
             <Text>
-            {"\n"}One for counting timing how long you wish to meditate for.{"\n"}
+              {"\n"}One for counting timing how long you wish to meditate for.
+              {"\n"}
             </Text>
             <Text>
-            {"\n"}Has a countdown to repeat a sound each time it ends, bringing you
-              return to focus. Can be used with or without the meditation timer.
+              {"\n"}Has a countdown to repeat a sound each time it ends,
+              bringing you return to focus. Can be used with or without the
+              meditation timer.
             </Text>
           </TextBlock>
           <SubHeader>Sounds</SubHeader>
@@ -56,7 +71,7 @@ const styles = StyleSheet.create({
   },
   guideContainer: {
     overflow: "hidden",
-    paddingHorizontal: 24,
     paddingVertical: 16,
-  }
+    marginBottom: 50,
+  },
 });
