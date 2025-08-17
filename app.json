@@ -1,12 +1,13 @@
 {
   "expo": {
-    "name": "Mind The Gap Mobile",
-    "slug": "Mind-The-Gap-Mobile",
+    "name": "Minding Meditator",
+    "slug": "Minding-Meditator-Mobile",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "MindingMeditator",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -28,7 +29,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.MindTheGapMobile"
+      "package": "com.anonymous.MindingMeditatorMobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"

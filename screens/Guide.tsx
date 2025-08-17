@@ -23,7 +23,7 @@ const Guide = () => {
         >
           <SubHeader>About</SubHeader>
           <TextBlock>
-            Mind the Gap is a simple yet user-friendly app that helps you stay
+            Minding Meditator is a simple yet user-friendly app that helps you stay
             focused during meditation. It has gentle reminder sounds that will
             bring your focus back on your breath if your mind starts to wander.
           </TextBlock>

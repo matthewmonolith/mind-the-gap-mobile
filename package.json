@@ -22,7 +22,8 @@
     "react-native-svg": "15.11.2",
     "react-native-worklets": "^0.4.0",
     "react-timer-hook": "^4.0.5",
-    "expo-audio": "~0.4.8"
+    "expo-audio": "~0.4.8",
+    "expo-dev-client": "~5.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -1,4 +1,4 @@
-package com.anonymous.MindTheGapMobile
+package com.anonymous.MindingMeditatorMobile
 
 import android.os.Build
 import android.os.Bundle
